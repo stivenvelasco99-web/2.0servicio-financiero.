@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Servicio Financiero – Amortización y DPFs</title>
+  <link rel="stylesheet" href="src/style.css" />
+  <!-- Librerías para PDF -->
+  <script defer src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+  <!-- App -->
+  <script defer src="src/app.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Servicio Financiero</h1>
+    <p class="note">Calculadora de <b>tablas de amortización</b> (Francés/Alemán) y <b>DPFs</b> (mensual/vencimiento). Exporta a <b>PDF</b>.</p>
+
+    <div class="grid">
+      <!-- Amortización -->
+      <section class="card">
+        <h2>Crédito – Tabla de amortización</h2>
+        <div class="row">
+          <div>
+            <label>Monto</label>
+            <input id="am_monto" type="number" step="0.01" value="10000">
+          </div>
+          <div>
+            <label>Plazo (meses)</label>
+            <input id="am_plazo" type="number" step="1" value="24">
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Tasa (% anual efectiva)</label>
+            <input id="am_tasa_ea" type="number" step="0.0001" value="18">
+          </div>
+          <div>
+            <label>¿Tasa mensual directa? (opcional, domina sobre EA)</label>
+            <input id="am_tasa_m" type="number" step="0.0001" placeholder="ej. 1.5">
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Método</label>
+            <select id="am_metodo">
+              <option value="frances">Francés (cuota fija)</option>
+              <option value="aleman">Alemán (amortización fija)</option>
+            </select>
+          </div>
+          <div>
+            <label>Seguro mensual (opcional)</label>
+            <input id="am_seguro" type="number" step="0.01" placeholder="ej. 5.00">
+          </div>
+        </div>
+
+        <div class="flex">
+          <button id="am_calc">Calcular</button>
+          <button class="ghost" id="am_pdf" disabled>Descargar PDF</button>
+          <span class="pill" id="am_info"></span>
+        </div>
+
+        <div class="sep"></div>
+        <div class="totals" id="am_totales"></div>
+        <div class="tablebox">
+          <table id="am_tabla">
+            <thead></thead><tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- DPF -->
+      <section class="card">
+        <h2>DPF – Depósitos a Plazo</h2>
+        <div class="row">
+          <div>
+            <label>Monto</label>
+            <input id="dp_monto" type="number" step="0.01" value="5000">
+          </div>
+          <div>
+            <label>Plazo (meses)</label>
+            <input id="dp_plazo" type="number" step="1" value="12">
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Tasa (% anual efectiva)</label>
+            <input id="dp_tasa_ea" type="number" step="0.0001" value="8">
+          </div>
+          <div>
+            <label>Pago de intereses</label>
+            <select id="dp_modalidad">
+              <option value="mensual">Mensual</option>
+              <option value="vencimiento">Al vencimiento</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex">
+          <button id="dp_calc">Calcular</button>
+          <button class="ghost" id="dp_pdf" disabled>Descargar PDF</button>
+          <span class="pill" id="dp_info"></span>
+        </div>
+
+        <div class="sep"></div>
+        <div class="totals" id="dp_totales"></div>
+        <div class="tablebox">
+          <table id="dp_tabla">
+            <thead></thead><tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <p class="note">© 2025 · Solo para fines educativos.</p>
+  </div>
+</body>
+</html>
